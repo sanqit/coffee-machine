@@ -1,0 +1,54 @@
+type: edu
+custom_name: stage1
+files:
+- name: tests.py
+  visible: false
+  text: |
+    from hstest.stage_test import *
+    from hstest.test_case import TestCase
+
+    CheckResult.correct = lambda: CheckResult(True, '')
+    CheckResult.wrong = lambda feedback: CheckResult(False, feedback)
+
+    OUTPUT = """
+    Starting to make a coffee
+    Grinding coffee beans
+    Boiling water
+    Mixing boiled water with crushed coffee beans
+    Pouring coffee into the cup
+    Pouring some milk into the cup
+    Coffee is ready!
+    """
+
+
+    class CoffeeMachineTest(StageTest):
+        def generate(self) -> List[TestCase]:
+            return TestCase.from_stepik([('', OUTPUT)])
+
+        def check(self, reply: str, clue: Any) -> CheckResult:
+            return CheckResult(
+                reply.strip() == clue.strip(),
+                'You should make coffee exactly like in the example')
+
+
+    if __name__ == '__main__':
+        CoffeeMachineTest('machine.coffee_machine').run_tests()
+  learner_created: false
+- name: machine/coffee_machine.py
+  visible: true
+  text: '# Write your code here'
+  learner_created: false
+feedback_link: https://hyperskill.org/projects/68/stages/366/implement
+status: Failed
+feedback:
+  message: "Exception in test #1\n\nProbably your program run out of input (tried\
+    \ to read more than expected)\n\nTraceback (most recent call last):\n  File \"\
+    coffee_machine.py\", line 94, in <module>\n    CoffeeMachine().start()\n  File\
+    \ \"coffee_machine.py\", line 91, in start\n    current_action = self.print_actions()\n\
+    \  File \"coffee_machine.py\", line 43, in print_actions\n    current_action =\
+    \ input()\nEOFError: EOF when reading a line\n\nPlease find below the output of\
+    \ your program during this failed test.\nNote that the '>' character indicates\
+    \ the beginning of the input line.\n\n---\n\nWrite action (buy, fill, take, remaining,\
+    \ exit):\n> \n\n\nWrite action (buy, fill, take, remaining, exit):"
+  time: Mon, 10 Aug 2020 22:29:15 UTC
+record: 1
